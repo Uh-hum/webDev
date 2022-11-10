@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>键盘事件</title>
+    <!-- 引入Vue -->
+    <script src="../js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="root">
+        <h2>欢迎来到{{name}}学习</h2>
+        <input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo">
+        <input type="text" placeholder="按下回车提示输入" @keyup.enter="showInfo">
+    </div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    new Vue({
+        el:'#root',
+        data:{
+            name:'尚硅谷'
+        },
+        methods: {
+            showInfo(e){
+                console.log(e.target.value)
+            }
+        },
+    })
+</script>
+
+</html>

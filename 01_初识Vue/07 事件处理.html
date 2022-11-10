@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件处理</title>
+    <!-- 引入Vue -->
+    <script src="../js/vue.js"></script>
+    <style>
+        * {
+            margin-top: 20px;
+        }
+        div .demo {
+            width: 500px;
+            height: 100px;
+            background-color: pink;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <h1>姓名：{{name}}</h1>
+        <h3>地址：{{address}}</h3>
+        <h3>地址：{{obj()}}</h3>
+        <!-- <button v-on:click="showInfo">点我可以知道很多</button> -->
+        <button @click="showInfo($event, 66)">点我可以知道很多</button>
+        <button @click.stop.prevent="showInfo($event, 66)">点我可以知道很多</button>
+
+        <div class="demo" @click.capture="showMsg">
+            <button @click="showMsg">点我点我</button>
+        </div>
+    </div>
+
+    <script>
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                name:'xixixi',
+                address:'jiazhaoye',
+                obj(){
+                    return 1
+                }
+            },
+            methods: {
+                showInfo(e, number){
+                    alert(`能知道${e}，你真是个二臂`,)
+                    console.log(e.target, number)
+                },
+                showMsg(){
+                    alert('hahaha')
+                },
+                // showHaha: function(){
+
+                // }
+            }
+        })
+       
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表过滤</title>
+    <!-- 引入Vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 遍历数组 -->
+        <h2>人员列表</h2>
+        <input type="text" placeholder="请输入查询关键词" v-model="keywords">
+        <ul>
+            <li v-for="(p, index) in filPersons" :key="p.id">
+                {{p.name}}-{{p.age}}
+            </li>
+        </ul>
+    </div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+    new Vue({
+        el: '#root',
+        data: {
+            keywords: '',
+            persons: [
+                { id: '001', name: '马冬梅', age: 18, sex: '女' },
+                { id: '002', name: '周冬雨', age: 45, sex: '女' },
+                { id: '003', name: '周杰伦', age: 35, sex: '男' },
+                { id: '004', name: '温兆伦', age: 36, sex: '男' }
+            ],
+            filPersons: []
+        },
+        watch: {
+            keywords: {
+                immediate: true, // 加了immediate代表输入空字符串，所有对象都存在空字符串
+                handler(val) {
+                    this.filPersons = this.persons.filter((p) => {
+                        return p.name.indexOf(val) !== -1
+                    })
+                }
+            }
+        },
+        computed: {
+            filPersons() {
+                return this.persons.filter((p) => {
+                    return p.name.indexOf(this.keywords) !== -1
+                })
+            }
+        }
+    })
+</script>
+
+</html>

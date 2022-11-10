@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>收集表单数据</title>
+    <style>
+        button {
+            margin-top: 10px;
+        }
+    </style>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <form @submit.prevent="demo">
+            <!-- 提交表单 -->
+            <label for="demo">账号：</label><input id="demo" type="text" v-model.trim="userInfo.account"> <br>
+            <!-- v-model.trim 去除前面和后面的空格 -->
+            密码：<input type="password" v-model="userInfo.password"> <br>
+            年龄：<input type="number" v-model.number="age">
+
+            性别：
+            女<input type="radio" name="sex" value="female" v-model="userInfo.sex">
+            男<input type="radio" name="sex" value="male" v-model="userInfo.sex">
+            <br><br>
+            爱好：
+            学习 <input type="checkbox" v-model="userInfo.hobby" value="study">
+            游戏 <input type="checkbox" v-model="userInfo.hobby" value="game">
+            吃饭 <input type="checkbox" v-model="userInfo.hobby" value="eat">
+            <!-- 复选框中v-model默认收集的是 checked 的值 -->
+            <br><br>
+
+            所属校区：
+            <select v-model="userInfo.city">
+                <option value="">请选择校区</option>
+                <option value="beijing">北京</option>
+                <option value="shanghai">上海</option>
+            </select>
+            <br><br>
+
+            其他信息：
+            <textarea v-model.lazy="userInfo.other"></textarea>
+            <!-- v-model.lazy 非实时收集 -->
+            <br><br>
+            <input type="checkbox" v-model="userInfo.agree"> 阅读并接受<a href="">《用户协议》</a>
+
+            <button>提交</button>
+        </form>
+    </div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            userInfo: {
+                account: '',
+                password: '',
+                age:'',
+                sex: 'female',
+                hobby: [],
+                city: 'beijing',
+                other: '',
+                agree: '',
+            }
+        },
+        methods: {
+            demo() {
+                console.log(JSON.stringify(this.userInfo))
+            }
+        },
+    })
+</script>
+
+</html>

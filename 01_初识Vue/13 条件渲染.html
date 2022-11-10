@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>条件渲染</title>
+    <!-- 引入Vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+       <h1>当前的n值是:{{n}}</h1>
+       <button @click="n++">点我n+1</button>
+       <!-- 使用 v-show 做条件渲染 不显示的情况下该节点依然存在-->
+       <h2 v-show="n === 1">Angular</h2>
+       <h2 v-show="n === 2">React</h2>
+       <h2 v-show="n === 3">Vue</h2>
+
+       <!-- 使用 v-if 做条件渲染 如果不显示，该节点会直接消失-->
+       <h2 v-if="false">欢迎来到{{name}}</h2>
+       <h2 v-if="1 == 1">欢迎来到{{name}}</h2>
+
+       <!-- v-else-if 和 v-else -->
+       <h2 v-if="n === 1">Angular</h2>
+       <h2 v-else-if="n === 2">React</h2>
+       <!-- v-else 在其他条件都不符合的情况下直接执行v-else -->
+       <!-- v-if 和 v-else-if 之间不能存在其他结构，不能阻断 -->
+       <h2 v-else="n === 3">Vue</h2>
+       
+       <!-- template 与 v-if结合使用 template该节点不会显示-->
+       <template v-if="n === 1">
+            <h2>你好</h2>
+            <h2>who are you</h2>
+       </template>
+    </div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+    new Vue({
+        el: '#root',
+        data:{
+            name: 'woshinidie',
+            n: 0
+        } 
+    })
+</script>
+
+</html>

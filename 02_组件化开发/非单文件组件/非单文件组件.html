@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>非单文件组件</title>
+	<script type="text/javascript" src="../../js/vue.js"></script>
+</head>
+
+<body>
+	<div id="root">
+
+
+	</div>
+</body>
+
+<script type="text/javascript">
+	Vue.config.productionTip = false
+
+	const student = Vue.extend({
+		template: `
+				<div>
+					<h2>学生姓名：{{studentName}}</h2>
+					<h2>学生年龄：{{age}}</h2>
+				</div>
+			`,
+		data() {
+			return {
+				studentName: 'JOJO',
+				age: 20
+			}
+		}
+	})
+	// 1. 创建组件
+	const school = Vue.extend({
+		// 组件定义时一定不能写el配置项，因为所有的组件都要被一个vm管理，由vm决定服务于哪个容器
+		name: 'school',
+		template: `
+		<div>
+			<h2>学校名称：{{name}}</h2>
+			<h2>学校地址：{{address}}</h2>
+			<hr>
+			<MyStudent></MyStudent>
+		</div>
+		`,
+		data() {
+			return {
+				name: 'atguigu',
+				address: 'beijing'
+			}
+		},
+		components: {
+			MyStudent: student
+		}
+	})
+
+	const hello = Vue.extend({
+		data() {
+			return {
+				msg: '欢迎欢迎'
+			}
+		},
+		template: `
+		<div>
+			<h2>{{msg}}</h2>
+			
+		</div>
+		`
+	})
+	// 全局注册组件
+	Vue.component('hello', hello)
+
+	// 定义app组件
+	const app = {
+		template: `
+			<div>
+				<hello></hello>
+				<!-- 3. 编写组件标签 -->
+				<school></school>
+			</div>
+		`,
+		components: {
+			hello,
+			school
+		}
+	}
+	
+	new Vue({
+		template: `
+			<app></app>
+		`,
+		el: '#root',
+		// 2. 局部注册组件
+		components: {
+			app
+		}
+	})
+
+
+</script>
+
+</html>

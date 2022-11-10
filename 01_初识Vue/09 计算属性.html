@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性</title>
+    <!-- 引入Vue -->
+    <script src="../js/vue.js"></script>
+
+</head>
+
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="firstName"><br/>
+        名：<input type="text" v-model="lastName"><br/>
+        全名：<span>{{fullName}}</span>
+    </div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            firstName: '张',
+            lastName: '三'
+        },
+        computed: {
+            fullName: {
+                // get作用：当fullName被读取时，get就会被调用，且返回值就是fullName的值
+                // get调用：初次读取fullName时；所依赖的数据发生变化时
+                get(){
+                    console.log('get调用了')
+                    return this.firstName + '-' + this.lastName;
+                },
+                set(value) {
+                    const arr = value.slice('-')
+                    this.firstName = arr[0]
+                    this.lastName = arr[1]
+                }
+            },
+            // 简写
+            fullName1(){
+                return this.firstName + '-' + this.lastName;
+            }
+        }
+    })
+</script>
+
+</html>

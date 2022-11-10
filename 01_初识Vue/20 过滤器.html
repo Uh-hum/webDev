@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>过滤器 </title>
+    <style>
+        button {
+            margin-top: 10px;
+        }
+    </style>
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.6/dayjs.min.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>当前时间戳：{{time}}</h2>
+        <h2>计算属性转换后时间：{{formatTime}}</h2>
+        <h2>方法转换后时间：{{getFormatTime()}}</h2>
+        <!-- 过滤器传参 -->
+        <h2>过滤器转换后时间：{{time | timeFormater('YYYY年-MM月-DD日 HH:mm:ss')}}</h2>
+        <h2>截取年月日：{{time | timeFormater() | slice}}</h2>
+    </div>
+</body>
+
+<script type="text/javascript">
+    Vue.config.productionTip = false
+    Vue.filter('slice', (value) => {
+        return value.slice(0, 15)
+    })
+
+    const vm = new Vue({
+        el: '#root',
+        data: {
+            time: Date.now()
+        },
+        computed: {
+            formatTime() {
+                return dayjs(this.time).format('YYYY-MM-DD HH:mm:ss')
+            }
+        },
+        methods: {
+            getFormatTime() {
+                return dayjs(this.time).format('HH:mm:ss')
+            }
+        },
+        filters: {
+            timeFormater(value, str) {
+                return dayjs(value).format(str)
+            }
+        }
+    })
+</script>
+
+</html>

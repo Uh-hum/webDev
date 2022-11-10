@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板语法</title>
+    <!-- 引入Vue -->
+    <script src="../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 准备好一个容器 -->
+    <div id="root1">
+        <h1>插值语法</h1>
+        <h3>你好，{{name}}</h3>
+        <hr>
+        <h1>指令语法</h1>
+        <a v-bind:href="url" target="_blank">点我去百度</a>
+    </div>
+
+    <script>
+        // vue.config.productionTip = false
+        Vue.config.productionTip = false // 阻止vue在启动时生成生产提示
+        // 创建Vue实例
+        new Vue({
+            el: '#root1', //element:  el用于指定当前Vue实例为哪个容器服务，值通常为css选择器字符串
+            data: { //data用于存储数据，数据共el所指定的容器去使用
+                name: '我是你爹',
+               
+                url: 'http://www.baidu.com'
+            }
+        })
+    </script>
+</body>
+
+</html>
